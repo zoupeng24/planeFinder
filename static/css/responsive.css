@@ -1,0 +1,29 @@
+html {
+	font-size: 62.5%;/*10 ÷ 16 × 100% = 62.5%*/
+}
+
+@media screen and (min-width:0px) and (max-width:768px){
+	body{
+		font-size: 2rem;
+	}
+}
+@media screen and (min-width:768px) {
+	body{
+		font-size: 3rem;
+	}
+	body .header h1{
+		font-size:4.6rem;
+		background-position: left 7px; 
+		background-size: 50px;
+		padding-left: 60px;
+	}
+	.tip,
+	.footer{
+		font-size: 2rem;
+	}
+}
+@media screen and (max-width:481px) {
+	.footer img{
+		width: 90%;
+	}
+}

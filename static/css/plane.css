@@ -1,0 +1,90 @@
+.playground{
+    width: 100%;
+}
+.playground td{
+    padding: 5% 0;
+    position: relative;
+}
+.gridWrapper{
+    position: absolute;
+    bottom: 20%;
+    width: 100%;
+    text-align: center;
+}
+.playground td:first-child{
+	width: 6%;
+}
+.playground td:first-child .gridWrapper{
+	text-align: left;
+}
+.playground thead .gridWrapper{
+	bottom:2%;
+}
+.playableGrid{
+    box-sizing:border-box;
+    border: 1px solid #000;
+    background-size: 100%;
+}
+.playgroundContainer p i,
+.playgroundContainer p span{
+    padding: 0 2px 0 0;
+    color: #933;
+    font-weight: bold;
+}
+.playgroundContainer a{
+    z-index: 10000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: yellow;
+    border-radius: 30px;
+    font-size: 1.6rem;
+    width: 100px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    margin-left: -50px;
+}
+.playgroundContainer section{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 999;
+    opacity: 0.2;
+}
+.playgroundContainer p{
+    position: absolute;
+    bottom: 0;
+    height: 2em;
+    font-size: 1.8rem;
+    text-align: center;
+    width: 100%;
+    color: #525;
+}
+.playgroundContainer{
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+}
+.hurtedGrid{
+    background-image: url("../images/icon/iconfont-close.png");
+}
+.deadGrid{
+    background-image: url("../images/icon/bang.png");
+}
+.emptyGrid{
+    background-image: url("../images/icon/iconfont-cry.png");
+}
+.planeDefault1{
+    background-color:   #FFF68F;
+}
+.planeDefault2{
+    background-color: #EE6363;
+}
+.planeDefault3{
+    background-color: #43CD80;
+}
+

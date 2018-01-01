@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>找飞机</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="Cache-Control" content="no-cache">
+    <link rel="icon" href="static/images/icon/logo.ico" type="image/x-icon"/> 
+	<link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+  <!-- BEGIN HEADER -->
+  <div class="header">
+    <h1>找飞机</h1>
+  </div>
+  <!-- END HEADER -->
+
+	<!-- BEGIN Music -->
+	<!-- <audio src="./music/CornfieldChase.mp3" autoplay="autoplay" loop="loop" id="music"></audio>
+	<div id="musicTrigger" class="musicTrigger playing"></div> -->
+	<!-- END Music -->
+
+  <div class="playgroundContainer">
+      <p>
+          剩余子弹数：<i></i>
+          使用时间：<span></span>秒
+      </p>
+  </div>
+
+  <div class="demo-box">
+      <h2>玩法：</h2>
+      <ul>
+          <li>不知道你童年是否在中方格纸上玩过这个游戏，9*9的格子中有随机的三架飞机；</li>
+          <li>利用仅有的30发子弹,击落所有飞机，剩余子弹越多，用时越少，得分越高;</li>
+          <li>击中机头可消灭飞机,飞机形状如下图:</li>
+      </ul>
+      <div class="demo"></div>
+  </div>
+
+	<!-- BEGIN FOOTER -->
+  <div class="footer">
+    <p>©2018 乘着风, email: x126789@126.com</p> 
+  </div>
+	<script src="./static/js/lib/seajs/sea.js"></script>
+	<script>
+		seajs.config({
+			alias: {
+				"jquery": "jquery/jquery.js"
+			}
+		});
+		seajs.use("./static/js/index");
+	</script>
+	<!-- END FOOTER -->
+</body>
+</html>
+
