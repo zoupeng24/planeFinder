@@ -1,3 +1,5 @@
+// 游戏
+
 define(function(require, exports, module){
 
 	var $ = require("jquery");
@@ -6,18 +8,24 @@ define(function(require, exports, module){
 
 	var Game = function(playground, limit){
 		this.times = 0;
+		// 棋盘
 		this.playground = playground ? playground : null;
+		// 剩余子弹数
 		this.limit = limit ? limit : Infinity;
-		this.$time = $('.playgroundContainer span');
-		this.$limit = $('.playgroundContainer i');
+		// 时间dom元素
+		this.$timeDom = $('.playgroundContainer span');
+		// 剩余子弹
+		this.$limitDom = $('.playgroundContainer i');
 		var _this = this;
+		// 计时器
 		this.clock = new Clock(function(){
-			_this.$time.html(this.seconds);
+			_this.$timeDom.html(this.seconds);
 		});
 	}
 
 	Game.prototype = {
-
+		
+		// 点击处理
 		hitHandler : function(e){
 			var _this = e.data.that;
 			if (_this.times === 0) {
@@ -28,53 +36,49 @@ define(function(require, exports, module){
 			that.playground = playground;
 			var me = $(this);
 			var coordinateStr = me.attr("data-coordinate");
+			// 坐标
 			var coordinate = new Grid(Math.floor(coordinateStr / 10), coordinateStr % 10, false);
 			
 			playground.gridMatrix[coordinate.ordinate][coordinate.abscissa].setHurted(true);
 			
-			if ("undefined" === typeof me.attr("data-plane-id")) {
-				//empty
-				// console.log("empty");
+			if ("undefined" === typeof me.attr("data-plane-id")) { //打空了
 				me.addClass(playground.emptyClassName);
 			} else {
-				//check the grid is head
 				var planeId = me.attr("data-plane-id");
-				//飞机与机场的映射
-				var headHurted = false;
-				for (var i = 0; i < playground.planeGroup.length; i++) {
-					if (playground.planeGroup[i].id === planeId) {
-						if (coordinate.ordinate === playground.planeGroup[i].gridList[0].ordinate && coordinate.abscissa === playground.planeGroup[i].gridList[0].abscissa) {
-							headHurted = true;
-							playground.alivePlaneNums--;	
-						} else {
-							headHurted = false;
-						}
-					} 
-				}
-
-				if (headHurted) {
+				var headHurted = _this.checkIsHead(playground, coordinate, planeId);
+				if (headHurted) { // 击中头部
+					playground.alivePlaneNums--;	
 					me.addClass(playground.deadClassName);
 					playground.showPlane(planeId);
-					//head then dead
 					if (playground.alivePlaneNums <= 0) {
 						setTimeout(function(){
 							_this.win();
 						}, 500);
-					} else {
-						// console.log("dead");	
 					}
-				} else {
-					//body then hurt
-					console.log("hurt");
+				} else { // 击中身体
 					me.addClass(playground.hurtedClassName);
 				}
 
 			}
-			_this.controlLimit();
+			_this.checkLimit();
 		},
 
-		controlLimit : function(){
-			this.$limit.html(this.limit - this.times);
+		// 检测是否为头部
+		checkIsHead: function(playground, coordinate, planeId){
+			for (var i = 0; i < playground.planeGroup.length; i++) {
+				if (playground.planeGroup[i].id === planeId) {
+					if (coordinate.ordinate === playground.planeGroup[i].gridList[0].ordinate && coordinate.abscissa === playground.planeGroup[i].gridList[0].abscissa) {
+						return true;
+					} else {
+						return false;
+					}
+				} 
+			}
+		},
+
+		// 检测子弹数量
+		checkLimit : function(){
+			this.$limitDom.html(this.limit - this.times);
 			var _this = this;
 			setTimeout(function(){
 				if(_this.times >= _this.limit){
@@ -88,13 +92,15 @@ define(function(require, exports, module){
 			}, 200);
 		},
 
+		// 比赛开始
 		start : function(){
 			console.log('Game start');
 			this.clock.start();
-			this.$time.html(0);
-			this.$limit.html(this.limit - 1);
+			this.$timeDom.html(0);
+			this.$limitDom.html(this.limit - 1);
 		},
 
+		// 比赛胜利
 		win : function(){
 			this.clock.stop();	
 			var hurtEventSelector =  '.' + this.playground.playableGridClassName;
@@ -111,14 +117,10 @@ define(function(require, exports, module){
 				location.reload();
 			})
 		},
-
-		bindHandler : function(){
+		
+		init : function() {
 			var hurtEventSelector =  '.' + this.playground.playableGridClassName;
 			$(hurtEventSelector).on("click", {playground : this.playground, that : this}, this.hitHandler);
-		},
-
-		init : function() {
-			this.bindHandler();
 		}
 	
 	}
