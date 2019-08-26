@@ -3,6 +3,14 @@
 define(function(require, exports, module){
 	var Grid = require("../plane/Grid");
 
+	// 方向，枚举
+	var DIRECTION = {
+		EAST: 1,
+		SOUTH: 2,
+		WEST: 3,
+		NORTH: 4,
+	}
+
 	var Plane = function(headGrid, direction, id){
 		// 方向
 		this.direction = direction; 
@@ -59,11 +67,3 @@ define(function(require, exports, module){
 
 	module.exports = Plane;
 })
-
-// 方向，枚举
-var DIRECTION = {
-	EAST: 1,
-	SOUTH: 2,
-	WEST: 3,
-	NORTH: 4,
-}

@@ -6,6 +6,14 @@ define(function(require, exports, module){
 	var util = require('../util/util');
 	var Plane = require('../plane/Plane');
 	var Grid = require('../plane/Grid');
+
+	// 方向，枚举
+	var DIRECTION = {
+		EAST: 1,
+		SOUTH: 2,
+		WEST: 3,
+		NORTH: 4,
+	}
 	
 	var Playground = function(id) {
 		// 棋盘格子数量
@@ -103,25 +111,25 @@ define(function(require, exports, module){
 				maxiOrdinate,
 				miniAbscissa,
 				maxiAbscissa;
-			if (this.direction === DIRECTION.EAST) { //机头朝东(右)
+			if (direction === DIRECTION.EAST) { //机头朝东(右)
 				miniOrdinate = 3;
 				maxiOrdinate = this.gridNums - 2;
 				miniAbscissa = 4;
 				maxiAbscissa = this.gridNums;
 			}
-			if (this.direction === DIRECTION.SOUTH) { //机头朝南(下)
+			if (direction === DIRECTION.SOUTH) { //机头朝南(下)
 				miniOrdinate = 4;
 				maxiOrdinate = this.gridNums;
 				miniAbscissa = 3;
 				maxiAbscissa = this.gridNums - 2;
 			}
-			if (this.direction === DIRECTION.WEST) { //机头朝西(左)
+			if (direction === DIRECTION.WEST) { //机头朝西(左)
 				miniOrdinate = 3;
 				maxiOrdinate = this.gridNums - 2;
 				miniAbscissa = 1;
 				maxiAbscissa = this.gridNums - 3;
 			}
-			if (this.direction === DIRECTION.NORTH) { //机头朝北(上)
+			if (direction === DIRECTION.NORTH) { //机头朝北(上)
 				miniOrdinate = 1;
 				maxiOrdinate = this.gridNums - 3;
 				miniAbscissa = 3;
@@ -132,7 +140,9 @@ define(function(require, exports, module){
 			var limit = ((this.gridNums - 3) * (this.gridNums - 2 - 2) * 4) * ((this.gridNums - 3) * (this.gridNums - 2 - 2) * 4);
 
 			for (var i = 0; i < limit; i++) {
-				var headGrid = new Grid(util.randomInt(miniOrdinate, maxiOrdinate), util.randomInt(miniAbscissa, maxiAbscissa));
+				var ordinate = util.randomInt(miniOrdinate, maxiOrdinate);
+				var abscissa = util.randomInt(miniAbscissa, maxiAbscissa);
+				var headGrid = new Grid(ordinate, abscissa);
 				if (this.checkGridSetable(headGrid)) {
 					return headGrid;
 				} else {
@@ -222,11 +232,3 @@ define(function(require, exports, module){
 	module.exports = Playground;
 	
 });
-
-// 方向，枚举
-var DIRECTION = {
-	EAST: 1,
-	SOUTH: 2,
-	WEST: 3,
-	NORTH: 4,
-}
